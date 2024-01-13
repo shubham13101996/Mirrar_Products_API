@@ -17,12 +17,13 @@ app.get("/", (req, res) => {
 });
 app.use("/api", productController);
 
-mongoose.connect(process.env.MONGO_URL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-const db = mongoose.connection;
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Connected to Database"));
-
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("DB connnected");
+    app.listen(PORT, () => console.log("SERVER IS RUNNING ON PORT"));
+  })
+  .catch((err) => console.log(err));
