@@ -27,7 +27,7 @@ router.get('/products/:id', getProduct, (req, res) => {
   res.json(res.product);
 });
 
-router.patch('/products/:id', getProduct, async (req, res) => {
+router.put('/products/:id', getProduct, async (req, res) => {
   if (req.body.variants) {
     res.product.variants = req.body.variants;
   }
@@ -42,7 +42,7 @@ router.patch('/products/:id', getProduct, async (req, res) => {
 
 router.delete('/products/:id', getProduct, async (req, res) => {
   try {
-    await res.product.remove();
+    await res.product.deleteOne();
     res.json({ message: 'Product deleted' });
   } catch (err) {
     res.status(500).json({ message: err.message });
